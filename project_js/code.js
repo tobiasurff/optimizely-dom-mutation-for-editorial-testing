@@ -55,7 +55,7 @@ window.optimizelyEditorial = {
         for (var i = 0; i < items.length; i++) {
             // Trigger callback every time an element matching the selector is added to the page
             // Every element will be pushed to the window.optimizelyEditorial.elementsToRender array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement('article:has(a[href*="' + items[i] + '"])',
+            window.optimizelyEditorial.waitForElement(items[i], 'article:has(a[href*="' + items[i] + '"])',
                 function() {
                     callback.call();
                 });
