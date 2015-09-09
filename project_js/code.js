@@ -61,7 +61,7 @@ window.optimizelyEditorial = {
                 });
         }
     },
-    decorateItem: function(data) {
+    decorateItem: function(identifier, data) {
         // Make sure mandatory information (like the identifier) is in the data object
         if (!identifier) {
             return false;
@@ -79,7 +79,7 @@ window.optimizelyEditorial = {
         }
         if (data.teaser_image) {
             $(elem)
-                .find('figure img').attr('src', data.teaser_image);
+                .find('img').attr('src', data.teaser_image);
         }
     }
 };
