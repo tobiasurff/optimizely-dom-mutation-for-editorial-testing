@@ -1,0 +1,48 @@
+{
+    "experiment": {
+        "description": "[Editorial] - {{Article ID}} - {{Existing Headline}}",
+        "edit_url": "http://www.example.com/",
+        "url_conditions": [{
+            "match_type": "simple",
+            "value": "http://www.example.com/",
+            "negate": false
+        }],
+        "activation_mode": "conditional",
+        "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{Article ID}}\"\r\n    ], activate)\r\n}"
+    },
+    "variations": [{
+        "description": "{{Bestehende Überschrift}}"
+    }, {
+        "description": "{{Neue Überschrift}}",
+        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article ID}}\", {{\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
+    }],
+    "goals": [{
+        "goal_type": 3,
+        "addable": false,
+        "urls": [
+            "&article={{Article ID}}"
+        ],
+        "url_match_types": [
+            2
+        ],
+        "title": "Artikel besucht: {{Bestehende Überschrift}} ({{DID}})"
+    }],
+    "project_id": 12345,
+    "placeholders": {
+        "experiment": {
+            "Article ID": "[0-9]{5,}",
+            "Existing Headline": ".+"
+        },
+        "variation": {
+            "Headline": ".*",
+            "Teaser Image": {
+                "source": "filepicker",
+                "options": {
+                    "data-fp-apikey": "ADD YOUR API KEY HERE",
+                    "data-fp-button-text": "Upload Image",
+                    "data-fp-crop-ratio": "1408/792"
+                }
+            }
+        }
+    }
+}
