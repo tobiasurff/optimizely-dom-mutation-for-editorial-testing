@@ -26,11 +26,8 @@ window.optimizelyEditorial = {
                         // same element more than once
                         if (!element.ready) {
                             element.ready = true;
-                            
-                            // Add element to array so that it can be picked up from within variation code
                             window.optimizelyEditorial.elementsToRender[identifier] = window.optimizelyEditorial.elementsToRender[identifier] || [];
                             window.optimizelyEditorial.elementsToRender[identifier].push(element);
-                           
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
                         }
@@ -55,31 +52,53 @@ window.optimizelyEditorial = {
         for (var i = 0; i < items.length; i++) {
             // Trigger callback every time an element matching the selector is added to the page
             // Every element will be pushed to the window.optimizelyEditorial.elementsToRender array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement('article:has(a[href*="-' + items[i] + '.html"])',
+
+            window.optimizelyEditorial.waitForElement(items[i], '.teaser:has([data-ctrl-pixeltracking-click*="did=' + items[i] + '"])',
                 function() {
                     callback.call();
                 });
         }
     },
-    decorateItem: function(data) {
-        // Make sure mandatory information (like the identifier) is in the data object
-        if (!identifier) {
+    decorateItem: function(identifier, data) {
+
+        // Make sure mandatory information is in the data object
+        if (!identifier || !data.ueberschrift) {
             return false;
         }
+
         // Get the last element added to the window.optimizelyEditorial.elementsToRender array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
         if (window.optimizelyEditorial.elementsToRender[identifier].length > 0) {
             var elem = window.optimizelyEditorial.elementsToRender[identifier].pop();
         } else {
             return false;
         }
-        // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
-        if (data.headline) {
+
+        if (data.dachzeile) {
             $(elem)
-                .find('h1').text(data.headline);
+                .find('.dachzeile a').text(data.dachzeile);
         }
-        if (data.teaser_image) {
+
+        if (data.ueberschrift) {
             $(elem)
-                .find('figure img').attr('src', data.teaser_image);
+                .find('.headline a').text(data.ueberschrift);
+
         }
+
+        if (data.teaserbild) {
+            $(elem)
+                .find('.img').replaceWith('<img src="' + data.teaserbild + '" class="img" title="(Quelle: ' + data.teaserbildquelle + ')" alt="' + data.teaserbildbeschreibung + '">');
+        }
+
+        if (data.ueberschrift) {
+            $(elem)
+                .find('.headline a').text(data.ueberschrift);
+
+        }
+
+        if (data.rubrikueberschrift) {
+            $(elem).parents('.hasTitle').children('.rasterHeadline').text(data.rubrikueberschrift);
+
+        }
+
     }
 };

@@ -1,5 +1,10 @@
 /* _optimizely_evaluate=force */
-optimizelyEditorial.decorateItem("12345", {
-    headline: "This is the variation headline",
-    teaser_image: "http://www.example.com/some/path/test.jpg"
+optimizelyEditorial.decorateItem("{{DID}}", {
+  did: "{{DID}}", 
+  rubrikueberschrift: "{{Rubriküberschrift}}",
+  dachzeile: "{{Neue Dachzeile}}",
+  ueberschrift: "{{Neue Überschrift}}",
+  teaserbild: "{{Neues Teaserbild}}",
+  teaserbildbeschreibung: "{{Bildbeschreibung}}",
+  teaserbildquelle: "{{Bildbeschreibung}}"
 });

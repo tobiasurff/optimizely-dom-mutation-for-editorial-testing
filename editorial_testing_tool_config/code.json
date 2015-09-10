@@ -1,48 +1,52 @@
 {
     "experiment": {
-        "description": "[Editorial] - {{Article ID}} - {{Existing Headline}}",
-        "edit_url": "http://www.example.com/",
+        "description": "swr.de - Teaser-Test - {{DID}} - {{Bestehende Überschrift}}",
+        "edit_url": "http://www.swr.de/",
         "url_conditions": [{
             "match_type": "simple",
-            "value": "http://www.example.com/",
+            "value": "http://www.swr.de/",
             "negate": false
         }],
         "activation_mode": "conditional",
-        "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{Article ID}}\"\r\n    ], activate)\r\n}"
+        "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{DID}}\"\r\n    ], activate)\r\n}"
     },
     "variations": [{
         "description": "{{Bestehende Überschrift}}"
     }, {
         "description": "{{Neue Überschrift}}",
-        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article ID}}\", {{\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
+        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{DID}}\", {\r\n  did: \"{{DID}}\", \r\n  rubrikueberschrift: \"{{Rubrik\u00FCberschrift}}\",\r\n  dachzeile: \"{{Neue Dachzeile}}\",\r\n  ueberschrift: \"{{Neue \u00DCberschrift}}\",\r\n  teaserbild: \"{{Neues Teaserbild}}\",\r\n  teaserbildbeschreibung: \"{{Bildbeschreibung}}\",\r\n  teaserbildquelle: \"{{Bildbeschreibung}}\"\r\n});"
     }],
     "goals": [{
         "goal_type": 3,
         "addable": false,
         "urls": [
-            "&article={{Article ID}}"
+            "did={{DID}}"
         ],
         "url_match_types": [
             2
         ],
         "title": "Artikel besucht: {{Bestehende Überschrift}} ({{DID}})"
     }],
-    "project_id": 12345,
+    "project_id": 1031717218,
     "placeholders": {
         "experiment": {
-            "Article ID": "[0-9]{5,}",
-            "Existing Headline": ".+"
+            "DID": "[0-9]{5,}",
+            "Bestehende Überschrift": ".+"
         },
         "variation": {
-            "Headline": ".*",
-            "Teaser Image": {
+            "Neue Überschrift": ".*",
+            "Neue Dachzeile": ".*",
+            "Neues Teaserbild": {
                 "source": "filepicker",
                 "options": {
-                    "data-fp-apikey": "ADD YOUR API KEY HERE",
-                    "data-fp-button-text": "Upload Image",
+                    "data-fp-apikey": "AcBh7CshqTe2qQk1Dr7DWz",
+                    "data-fp-button-text": "Bild hochladen",
                     "data-fp-crop-ratio": "1408/792"
                 }
-            }
+            },
+            "Bildbeschreibung": ".*",
+            "Bildquelle": ".*",
+            "Rubriküberschrift": ".*"
         }
     }
 }
