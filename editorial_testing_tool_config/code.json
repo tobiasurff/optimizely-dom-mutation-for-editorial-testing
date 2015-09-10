@@ -11,9 +11,9 @@
         "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{Article ID}}\"\r\n    ], activate)\r\n}"
     },
     "variations": [{
-        "description": "{{Bestehende Überschrift}}"
+        "description": "{{Existing Headline}}"
     }, {
-        "description": "{{Neue Überschrift}}",
+        "description": "{{Headline}}",
         "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article ID}}\", {{\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
     }],
     "goals": [{
@@ -25,7 +25,7 @@
         "url_match_types": [
             2
         ],
-        "title": "Artikel besucht: {{Bestehende Überschrift}} ({{DID}})"
+        "title": "Viewed article {{Article ID}}: {{Existing Headline}}"
     }],
     "project_id": 12345,
     "placeholders": {
