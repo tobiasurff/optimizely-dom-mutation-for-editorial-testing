@@ -1,10 +1,10 @@
 {
     "experiment": {
         "description": "[Editorial] - {{Article URL}} - {{Existing Headline}}",
-        "edit_url": "http://www.example.com/",
+        "edit_url": "http://www.bicycling.com/",
         "url_conditions": [{
-            "match_type": "simple",
-            "value": "http://www.example.com/",
+            "match_type": "substring",
+            "value": "www.bicycling.com",
             "negate": false
         }],
         "activation_mode": "conditional",
@@ -14,20 +14,20 @@
         "description": "{{Existing Headline}}"
     }, {
         "description": "{{Headline}}",
-        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article URL}}\", {{\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
+        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article URL}}\", {\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\",\r\n    primary_tag: \"{{Primary Tag}}\",\r\n    teaser_text: \"{{Teaser Text}}\"\r\n});\r\n"
     }],
     "goals": [{
         "goal_type": 3,
         "addable": false,
         "urls": [
-            "&article={{Article URL}}"
+            "{{Article URL}}"
         ],
         "url_match_types": [
             2
         ],
         "title": "Viewed article {{Article URL}}: {{Existing Headline}}"
     }],
-    "project_id": 12345,
+    "project_id": 3450042193,
     "placeholders": {
         "experiment": {
             "Article URL": ".+",
