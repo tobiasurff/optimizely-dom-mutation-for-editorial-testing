@@ -12,6 +12,10 @@ This repo contains templates for three parts of Optimizely:
 
 Use the three parts in your experiments and adapt the functions in Project JS and the variables to the needs of your site.
 
+Watch the 11-minute video walkthrough of how to set things up in Optimizely:
+
+[![Video walkthrough thumbnail](https://embed-ssl.wistia.com/deliveries/59687252aa8315b88edaa5bec0ab3c943054499a.jpg?image_play_button=true&image_play_button_color=0081bae0&image_crop_resized=450x281)](https://fast.wistia.net/embed/iframe/6mflhbjy7x)
+
 This is best used in combination with a CMS integration that creates these types of experiments in the background through Optimizely's REST API, without user interaction with the Optimizely UI.
 
 You can easily simulate what a CMS or shop system integration would look like by building a prototype (e.g. [https://github.com/tobiasurff/editorial-testing-prototype](https://github.com/tobiasurff/editorial-testing-prototype))
