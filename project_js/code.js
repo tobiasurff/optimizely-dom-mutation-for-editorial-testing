@@ -26,11 +26,11 @@ window.optimizelyEditorial = {
                         // same element more than once
                         if (!element.ready) {
                             element.ready = true;
-                            
+
                             // Add element to array so that it can be picked up from within variation code
                             window.optimizelyEditorial.elementsToDecorate[identifier] = window.optimizelyEditorial.elementsToDecorate[identifier] || [];
                             window.optimizelyEditorial.elementsToDecorate[identifier].push(element);
-                           
+
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
                         }
@@ -55,10 +55,26 @@ window.optimizelyEditorial = {
         for (var i = 0; i < items.length; i++) {
             // Trigger callback every time an element matching the selector is added to the page
             // Every element will be pushed to the window.optimizelyEditorial.elementsToDecorate array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement(items[i], 'article:has(a[href*="' + items[i] + '"])',
+            
+            // Main tiles on homepage
+            window.optimizelyEditorial.waitForElement(items[i], '.tile:has(a[href*="' + items[i] + '"])',
                 function() {
                     callback.call();
                 });
+
+            // Channel tiles lower on the homepage
+            window.optimizelyEditorial.waitForElement(items[i], '.channel-image:has(a[href*="' + items[i] + '"])',
+                function() {
+                    callback.call();
+                }); 
+
+            // Capture the article page itself
+            if (window.location.href.indexOf(items[i]) > -1){
+                window.optimizelyEditorial.waitForElement(items[i], '.hero-article, .article-section',
+                function() {
+                    callback.call();
+                }); 
+            }
         }
     },
     decorateItem: function(identifier, data) {
@@ -75,11 +91,19 @@ window.optimizelyEditorial = {
         // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
         if (data.headline) {
             $(elem)
-                .find('h1').text(data.headline);
+                .find('h2.article-title a, h1.title').text(data.headline);
+        }
+        if (data.primary_tag) {
+            $(elem)
+                .find('h2.primary-tag a').text(data.primary_tag);
         }
         if (data.teaser_image) {
             $(elem)
-                .find('img').attr('src', data.teaser_image);
+                .find('.img img, .main-image img').attr('src', data.teaser_image);
+        }
+        if (data.teaser_text) {
+            $(elem)
+                .find('.field-dek p').text(data.teaser_text);
         }
     }
 };
