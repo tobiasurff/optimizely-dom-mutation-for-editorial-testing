@@ -55,7 +55,7 @@ window.optimizelyEditorial = {
         for (var i = 0; i < items.length; i++) {
             // Trigger callback every time an element matching the selector is added to the page
             // Every element will be pushed to the window.optimizelyEditorial.elementsToDecorate array once so that your experiment code can pick it up and decorate accordingly
-            
+
             // Main tiles on homepage
             window.optimizelyEditorial.waitForElement(items[i], '.tile:has(a[href*="' + items[i] + '"])',
                 function() {
@@ -66,14 +66,14 @@ window.optimizelyEditorial = {
             window.optimizelyEditorial.waitForElement(items[i], '.channel-image:has(a[href*="' + items[i] + '"])',
                 function() {
                     callback.call();
-                }); 
+                });
 
             // Capture the article page itself
-            if (window.location.href.indexOf(items[i]) > -1){
+            if (window.location.href.indexOf(items[i]) > -1) {
                 window.optimizelyEditorial.waitForElement(items[i], '.hero-article, .article-section',
-                function() {
-                    callback.call();
-                }); 
+                    function() {
+                        callback.call();
+                    });
             }
         }
     },
@@ -99,7 +99,7 @@ window.optimizelyEditorial = {
         }
         if (data.teaser_image) {
             $(elem)
-                .find('.img img, .main-image img').attr('src', data.teaser_image);
+                .find('.img img, .main-image img').replaceWith('<img typeof="foaf:Image" src="' + data.teaser_image + '">');
         }
         if (data.teaser_text) {
             $(elem)
