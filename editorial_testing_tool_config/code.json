@@ -16,7 +16,9 @@
         "description": "{{Neue Überschrift}}",
         "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{DID}}\", {\r\n  did: \"{{DID}}\", \r\n  rubrikueberschrift: \"{{Rubrik\u00FCberschrift}}\",\r\n  dachzeile: \"{{Neue Dachzeile}}\",\r\n  ueberschrift: \"{{Neue \u00DCberschrift}}\",\r\n  teaserbild: \"{{Neues Teaserbild}}\",\r\n  teaserbildbeschreibung: \"{{Bildbeschreibung}}\",\r\n  teaserbildquelle: \"{{Bildbeschreibung}}\"\r\n});"
     }],
-    "goals": [{
+    "goals": [
+        3533340468,
+        {
         "goal_type": 3,
         "addable": false,
         "urls": [
@@ -25,7 +27,7 @@
         "url_match_types": [
             2
         ],
-        "title": "Artikel besucht: {{Bestehende Überschrift}} ({{DID}})"
+        "title": "Seite besucht: {{Bestehende Überschrift}} ({{DID}})"
     }],
     "project_id": 1031717218,
     "placeholders": {
