@@ -1,4 +1,4 @@
-window.optimizelyMerchandise = {
+window.optimizelyEditorial = {
     elementsToDecorate: [],
     waitForElement: function(identifier, selector, fn) {
 
@@ -113,22 +113,7 @@ window.optimizelyMerchandise = {
 
         }
 
-        //zoomimage
-        if ($(elem).attr('data-zoom-image').indexOf(data.image_model) > -1) {
 
-            console.log('zoom image detected.');
-            $(elem)
-                .attr("data-zoom-image", $(elem).attr("data-zoom-image").replace(data.image_model, data.image_item));
-            console.log('zoom image replaced.');
-
-        } else if ($(elem).attr('data-zoom-image').indexOf(data.image_item) > -1) {
-
-            $(elem)
-                .attr("data-zoom-image", 'http://placekitten.com/g/200/300' /*$(elem).attr("data-zoom-image").replace(data.image_item,data.image_model)*/ );
-
-        }
-
-        //$('.gallery-full-view').attr("data-zoom-image",'http://placekitten.com/g/200/300' /*$(elem).attr("data-zoom-image").replace(data.image_item,data.image_model)*/);
 
     }
 };
