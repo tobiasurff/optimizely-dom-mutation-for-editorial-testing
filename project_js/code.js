@@ -1,12 +1,15 @@
-window.optimizelyEditorial = {
+window.optimizelyMerchandise = {
     elementsToDecorate: [],
     waitForElement: function(identifier, selector, fn) {
+
         // If Mutation Observers are available
         if (window.MutationObserver || window.WebKitMutationObserver) {
+
             var listeners = [],
                 doc = window.document,
                 MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
                 observer;
+
             // Store the selector and callback to be monitored
             listeners.push({
                 selector: selector,
@@ -26,60 +29,106 @@ window.optimizelyEditorial = {
                         // same element more than once
                         if (!element.ready) {
                             element.ready = true;
-                            
+
                             // Add element to array so that it can be picked up from within variation code
                             window.optimizelyEditorial.elementsToDecorate[identifier] = window.optimizelyEditorial.elementsToDecorate[identifier] || [];
                             window.optimizelyEditorial.elementsToDecorate[identifier].push(element);
-                           
+
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
                         }
                     }
                 }
             }
+
             if (!observer) {
+
                 // Watch for changes in the document
                 observer = new MutationObserver(check);
                 observer.observe(doc.documentElement, {
                     childList: true,
                     subtree: true
                 });
+
             }
+
             // Check if the element is currently in the DOM
             check();
+
         }
 
     },
     itemOnPage: function(items, callback) {
-        // Loop through items
+
         for (var i = 0; i < items.length; i++) {
             // Trigger callback every time an element matching the selector is added to the page
             // Every element will be pushed to the window.optimizelyEditorial.elementsToDecorate array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement(items[i], 'article:has(a[href*="' + items[i] + '"])',
+            window.optimizelyEditorial.waitForElement(items[i], 'img[src*=",' + items[i] + ',"]',
                 function() {
                     callback.call();
                 });
         }
+
+
     },
     decorateItem: function(identifier, data) {
         // Make sure mandatory information (like the identifier) is in the data object
-        if (!identifier) {
+        if (!identifier || !data.product_id || !data.image_model || !data.image_item || !data.deeplink) {
             return false;
         }
+
         // Get the last element added to the window.optimizelyEditorial.elementsToDecorate array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
         if (window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
             var elem = window.optimizelyEditorial.elementsToDecorate[identifier].pop();
         } else {
             return false;
         }
-        // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
-        if (data.headline) {
+
+        //normal-image
+        //zoom-image
+
+        // source
+        if ($(elem).attr('src').indexOf(data.image_model) > -1) {
+
             $(elem)
-                .find('h1').text(data.headline);
-        }
-        if (data.teaser_image) {
+                .attr("src", $(elem).attr("src").replace(data.image_model, data.image_item));
+
+        } else if ($(elem).attr('src').indexOf(data.image_item) > -1) {
+
             $(elem)
-                .find('img').attr('src', data.teaser_image);
+                .attr("src", $(elem).attr("src").replace(data.image_item, data.image_model));
+
         }
+
+        //normal-image
+        if ($(elem).attr('data-normal-image').indexOf(data.image_model) > -1) {
+
+            $(elem)
+                .attr("data-normal-image", $(elem).attr("data-normal-image").replace(data.image_model, data.image_item));
+
+        } else if ($(elem).attr('data-normal-image').indexOf(data.image_item) > -1) {
+
+            $(elem)
+                .attr("data-normal-image", $(elem).attr("data-normal-image").replace(data.image_item, data.image_model));
+
+        }
+
+        //zoomimage
+        if ($(elem).attr('data-zoom-image').indexOf(data.image_model) > -1) {
+
+            console.log('zoom image detected.');
+            $(elem)
+                .attr("data-zoom-image", $(elem).attr("data-zoom-image").replace(data.image_model, data.image_item));
+            console.log('zoom image replaced.');
+
+        } else if ($(elem).attr('data-zoom-image').indexOf(data.image_item) > -1) {
+
+            $(elem)
+                .attr("data-zoom-image", 'http://placekitten.com/g/200/300' /*$(elem).attr("data-zoom-image").replace(data.image_item,data.image_model)*/ );
+
+        }
+
+        //$('.gallery-full-view').attr("data-zoom-image",'http://placekitten.com/g/200/300' /*$(elem).attr("data-zoom-image").replace(data.image_item,data.image_model)*/);
+
     }
 };
