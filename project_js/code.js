@@ -113,6 +113,29 @@ window.optimizelyEditorial = {
 
         }
 
+        /*
+
+On product detail pages, instead of swapping out the images in the zoom gallery, we need to swap the entire item in the list. Here's some sample code that has to be factored into the Project JS still:
+
+var idx = 1;
+
+var replaceSlides = function (slider, idx) {
+ var clone = slider.find('.slick-slide').eq(idx).clone();
+
+ slider
+   .slick('slickRemove', idx)
+   .slick('slickAdd', clone, 0, true);
+}
+
+$('.slick-slider.gallery-thumbs, .gallery-full .slick-slider').each(function () {
+ replaceSlides($(this), idx);
+})
+
+$('.slick-slider.gallery-thumbs').find('.slick-slide.slick-active.active').removeClass('active');
+$('.slick-slider.gallery-thumbs').find('.slick-slide.slick-active').eq(0).addClass('active‘);
+
+        */
+
 
 
     }
