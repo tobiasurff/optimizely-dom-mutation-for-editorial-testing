@@ -133,7 +133,7 @@ $('.slick-slider.gallery-thumbs, .gallery-full .slick-slider').each(function () 
 
 $('.slick-slider.gallery-thumbs').find('.slick-slide.slick-active.active').removeClass('active');
 $('.slick-slider.gallery-thumbs').find('.slick-slide.slick-active').eq(0).addClass('active‘);
-
+ 
         */
 
 
