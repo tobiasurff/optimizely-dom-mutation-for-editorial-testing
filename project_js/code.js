@@ -26,7 +26,7 @@ window.optimizelyEditorial = {
                         // same element more than once
                         if (!element.ready) {
                             element.ready = true;
-                            window.optimizelyEditorial.elementsToRender[identifier] = window.optimizelyEditorial.elementsToRender[identifier] || [];
+                          window.optimizelyEditorial.elementsToRender[identifier] = window.optimizelyEditorial.elementsToRender[identifier] || [];
                             window.optimizelyEditorial.elementsToRender[identifier].push(element);
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
@@ -61,13 +61,14 @@ window.optimizelyEditorial = {
     },
     decorateItem: function(identifier, data) {
 
+
         // Make sure mandatory information is in the data object
         if (!identifier || !data.ueberschrift) {
             return false;
         }
 
         // Get the last element added to the window.optimizelyEditorial.elementsToRender array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
-        if (window.optimizelyEditorial.elementsToRender[identifier].length > 0) {
+        if (typeof window.optimizelyEditorial.elementsToRender[identifier] !== 'undefined' && window.optimizelyEditorial.elementsToRender[identifier].length > 0) {
             var elem = window.optimizelyEditorial.elementsToRender[identifier].pop();
         } else {
             return false;
@@ -81,7 +82,6 @@ window.optimizelyEditorial = {
         if (data.ueberschrift) {
             $(elem)
                 .find('.headline a').text(data.ueberschrift);
-
         }
 
         if (data.teaserbild) {
@@ -99,6 +99,7 @@ window.optimizelyEditorial = {
             $(elem).parents('.hasTitle').children('.rasterHeadline').text(data.rubrikueberschrift);
 
         }
+
 
     }
 };

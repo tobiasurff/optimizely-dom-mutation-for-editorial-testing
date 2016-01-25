@@ -1,3 +1,6 @@
+/* _optimizely_evaluate=editor_only */
+optimizelyEditorial.itemOnPage(["{{DID}}"], function(){});
+/* _optimizely_evaluate=end_editor_only */
 /* _optimizely_evaluate=force */
 optimizelyEditorial.decorateItem("{{DID}}", {
   did: "{{DID}}", 

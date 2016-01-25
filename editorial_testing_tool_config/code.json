@@ -1,7 +1,7 @@
 {
     "experiment": {
         "description": "swr.de - Teaser-Test - {{DID}} - {{Bestehende Überschrift}}",
-        "edit_url": "http://www.swr.de/",
+        "edit_url": "http://www.swr.de/-/id=116/1p6o6z0/index.html",
         "url_conditions": [{
             "match_type": "simple",
             "value": "http://www.swr.de/",
@@ -14,7 +14,7 @@
         "description": "{{Bestehende Überschrift}}"
     }, {
         "description": "{{Neue Überschrift}}",
-        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{DID}}\", {\r\n  did: \"{{DID}}\", \r\n  rubrikueberschrift: \"{{Rubrik\u00FCberschrift}}\",\r\n  dachzeile: \"{{Neue Dachzeile}}\",\r\n  ueberschrift: \"{{Neue \u00DCberschrift}}\",\r\n  teaserbild: \"{{Neues Teaserbild}}\",\r\n  teaserbildbeschreibung: \"{{Bildbeschreibung}}\",\r\n  teaserbildquelle: \"{{Bildbeschreibung}}\"\r\n});"
+        "js_component": "\/* _optimizely_evaluate=editor_only *\/\r\noptimizelyEditorial.itemOnPage([\"{{DID}}\"], function(){});\r\n\/* _optimizely_evaluate=end_editor_only *\/\r\n\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{DID}}\", {\r\n  did: \"{{DID}}\", \r\n  rubrikueberschrift: \"{{Rubrik\u00FCberschrift}}\",\r\n  dachzeile: \"{{Neue Dachzeile}}\",\r\n  ueberschrift: \"{{Neue \u00DCberschrift}}\",\r\n  teaserbild: \"{{Neues Teaserbild}}\",\r\n  teaserbildbeschreibung: \"{{Bildbeschreibung}}\",\r\n  teaserbildquelle: \"{{Bildbeschreibung}}\"\r\n});"
     }],
     "goals": [
         3533340468,
