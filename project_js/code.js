@@ -63,7 +63,7 @@ window.optimizelyEditorial = {
 
 
         // Make sure mandatory information is in the data object
-        if (!identifier || !data.ueberschrift) {
+        if (!identifier) {
             return false;
         }
 
