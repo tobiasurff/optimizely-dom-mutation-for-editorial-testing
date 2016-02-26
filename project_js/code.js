@@ -1,12 +1,12 @@
 window.optimizelyPageModules = {
     elementsToDecorate: [],
     escapeStringForVariableName: function(string){
-        return name.replace(/[^a-z0-9]/g, function(s) {
-        var c = s.charCodeAt(0);
-        //if (c == 32) return '-';
-        //if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
-        return '' + ('000' + c.toString(16)).slice(-4);
-    });
+        return string.replace(/[^a-z0-9]/g, function(s) {
+            var c = s.charCodeAt(0);
+            //if (c == 32) return '-';
+            //if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
+            return '' + ('000' + c.toString(16)).slice(-4);
+        });
     },
     waitForElement: function(selector, fn) {
         // If Mutation Observers are available
