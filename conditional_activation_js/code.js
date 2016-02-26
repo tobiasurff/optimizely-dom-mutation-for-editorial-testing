@@ -1,5 +1,5 @@
 function(activate, options) {
-    optimizelyEditorial.itemOnPage([
-        "12345"
+    optimizelyPageModules.itemOnPage([
+        ".test"
     ], activate)
 }

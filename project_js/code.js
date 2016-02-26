@@ -1,6 +1,14 @@
-window.optimizelyEditorial = {
+window.optimizelyPageModules = {
     elementsToDecorate: [],
-    waitForElement: function(identifier, selector, fn) {
+    escapeStringForVariableName: function(string){
+        return name.replace(/[^a-z0-9]/g, function(s) {
+        var c = s.charCodeAt(0);
+        //if (c == 32) return '-';
+        //if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
+        return '' + ('000' + c.toString(16)).slice(-4);
+    });
+    },
+    waitForElement: function(selector, fn) {
         // If Mutation Observers are available
         if (window.MutationObserver || window.WebKitMutationObserver) {
             var listeners = [],
@@ -27,9 +35,11 @@ window.optimizelyEditorial = {
                         if (!element.ready) {
                             element.ready = true;
                             
+                            var identifier = window.optimizelyPageModules.escapeStringForVariableName(selector);
+
                             // Add element to array so that it can be picked up from within variation code
-                            window.optimizelyEditorial.elementsToDecorate[identifier] = window.optimizelyEditorial.elementsToDecorate[identifier] || [];
-                            window.optimizelyEditorial.elementsToDecorate[identifier].push(element);
+                            window.optimizelyPageModules.elementsToDecorate[identifier] = window.optimizelyPageModules.elementsToDecorate[identifier] || [];
+                            window.optimizelyPageModules.elementsToDecorate[identifier].push(element);
                            
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
@@ -50,36 +60,13 @@ window.optimizelyEditorial = {
         }
 
     },
-    itemOnPage: function(items, callback) {
-        // Loop through items
-        for (var i = 0; i < items.length; i++) {
-            // Trigger callback every time an element matching the selector is added to the page
-            // Every element will be pushed to the window.optimizelyEditorial.elementsToDecorate array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement(items[i], 'article:has(a[href*="' + items[i] + '"])',
+    itemOnPage: function(selector, callback) {
+        window.optimizelyPageModules.waitForElement(selector,
                 function() {
                     callback.call();
                 });
-        }
     },
-    decorateItem: function(identifier, data) {
-        // Make sure mandatory information (like the identifier) is in the data object
-        if (!identifier) {
-            return false;
-        }
-        // Get the last element added to the window.optimizelyEditorial.elementsToDecorate array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
-        if (window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
-            var elem = window.optimizelyEditorial.elementsToDecorate[identifier].pop();
-        } else {
-            return false;
-        }
-        // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
-        if (data.headline) {
-            $(elem)
-                .find('h1').text(data.headline);
-        }
-        if (data.teaser_image) {
-            $(elem)
-                .find('img').attr('src', data.teaser_image);
-        }
+    decorateItem: function(selector, fn) {
+        
     }
 };
