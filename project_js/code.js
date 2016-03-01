@@ -1,58 +1,58 @@
 window.optimizelyUtil = {
-  elementsToDecorate: [],
-  waitForElement : function(selector) {
-  return new Promise(function(resolve, reject) {
-    if (window.MutationObserver || window.WebKitMutationObserver) {
-            var listeners = [],
-                doc = window.document,
-                MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
-                observer;
-            // Store the selector and callback to be monitored
-            listeners.push({
-                selector: selector,
-                fn: fn
-            });
+  waitForElement: function(selector) {
+    return new Promise(function(resolve, reject) {
+      if (window.MutationObserver || window.WebKitMutationObserver) {
+        var listeners = [],
+          doc = window.document,
+          MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+          observer;
+        // Store the selector and callback to be monitored
+        listeners.push({
+          selector: selector,
+          fn: fn
+        });
 
-            function check() {
-                // Check the DOM for elements matching a stored selector
-                for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
-                    listener = listeners[i];
-                    // Query for elements matching the specified selector
-                    elements = optimizely.$(listener.selector);
+        function check() {
+          // Check the DOM for elements matching a stored selector
+          for (var i = 0, len = listeners.length, listener, elements; i < len; i++) {
+            listener = listeners[i];
+            // Query for elements matching the specified selector
+            elements = optimizely.$(listener.selector);
 
-                    for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
-                        element = elements[j];
-                        // Make sure the callback isn't invoked with the 
-                        // same element more than once
-                        if (!element.ready) {
-                            element.ready = true;
-                            
-                            //var identifier = window.optimizelyUtil.escapeStringForVariableName(selector);
+            for (var j = 0, jLen = elements.length, element; j < jLen; j++) {
+              element = elements[j];
+              // Make sure the callback isn't invoked with the 
+              // same element more than once
+              if (!element.ready) {
+                element.ready = true;
 
-                            // Add element to array so that it can be picked up from within variation code
-                            //window.optimizelyUtil.elementsToDecorate[identifier] = window.optimizelyPageModules.elementsToDecorate[identifier] || [];
-                            //window.optimizelyUtil.elementsToDecorate[identifier].push(element);
-                           
-                            // Invoke the callback with the element
-                            resolve(element);
-                        }
-                    }
-                }
+                //var identifier = window.optimizelyUtil.escapeStringForVariableName(selector);
+
+                // Add element to array so that it can be picked up from within variation code
+                //window.optimizelyUtil.elementsToDecorate[identifier] = window.optimizelyPageModules.elementsToDecorate[identifier] || [];
+                //window.optimizelyUtil.elementsToDecorate[identifier].push(element);
+
+                // Invoke the callback with the element
+                resolve(element);
+              }
             }
-            if (!observer) {
-                // Watch for changes in the document
-                observer = new MutationObserver(check);
-                observer.observe(doc.documentElement, {
-                    childList: true,
-                    subtree: true
-                });
-            }
-            // Check if the element is currently in the DOM
-            check();
+          }
         }
-  }),
+        if (!observer) {
+          // Watch for changes in the document
+          observer = new MutationObserver(check);
+          observer.observe(doc.documentElement, {
+            childList: true,
+            subtree: true
+          });
+        }
+        // Check if the element is currently in the DOM
+        check();
+      }
+    })
+  }
 }
-}
+
 
 window.optimizelyPageModules = {
     elementsToDecorate: [],
