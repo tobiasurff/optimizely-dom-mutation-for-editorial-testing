@@ -57,11 +57,11 @@ window.optimizelyUtil = {
 window.optimizelyPageModules = {
     elementsToDecorate: [],
     escapeStringForVariableName: function(string){
-        return string.replace(/[^a-z0-9]/g, function(s) {
+        return 'elem' + string.replace(/[^a-z0-9]/g, function(s) {
             var c = s.charCodeAt(0);
             //if (c == 32) return '-';
             //if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
-            return 'elem' + ('000' + c.toString(16)).slice(-4);
+            return ('000' + c.toString(16)).slice(-4);
         });
     },
     waitForElement: function(selector, fn) {
