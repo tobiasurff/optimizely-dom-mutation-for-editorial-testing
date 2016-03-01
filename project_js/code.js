@@ -32,8 +32,8 @@ window.optimizelyPageModules = {
                         element = elements[j];
                         // Make sure the callback isn't invoked with the 
                         // same element more than once
-                        if (!element.ready) {
-                            element.ready = true;
+                        if (!element.__optimizelyTreated) {
+                            element.__optimizelyTreated = true;
                             
                             var identifier = window.optimizelyPageModules.escapeStringForVariableName(selector);
 
