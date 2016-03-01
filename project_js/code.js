@@ -35,11 +35,11 @@ window.optimizelyPageModules = {
                         if (!element.__optimizelyTreated) {
                             element.__optimizelyTreated = true;
                             
-                            var identifier = window.optimizelyPageModules.escapeStringForVariableName(selector);
+                            //var identifier = window.optimizelyPageModules.escapeStringForVariableName(selector);
 
                             // Add element to array so that it can be picked up from within variation code
-                            window.optimizelyPageModules.elementsToDecorate[identifier] = window.optimizelyPageModules.elementsToDecorate[identifier] || [];
-                            window.optimizelyPageModules.elementsToDecorate[identifier].push(element);
+                            //window.optimizelyPageModules.elementsToDecorate[identifier] = window.optimizelyPageModules.elementsToDecorate[identifier] || [];
+                            //window.optimizelyPageModules.elementsToDecorate[identifier].push(element);
                            
                             // Invoke the callback with the element
                             listener.fn.call(element, element);
