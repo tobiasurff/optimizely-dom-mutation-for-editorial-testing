@@ -104,16 +104,17 @@ window.optimizelyEditorial = {
 
         if (data.overline) {
             if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
-                $(elem).find('h3').text(data.headline);
+                $(elem).find('h3').text(data.overline);
             }
         }
 
-        if (data.teasertext) {
-            if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
-                $(elem).find('h2').text(data.headline);
+        if (data.teaser) {
+            if ( $(elem).hasClass('teaser') ){
+                // TODO: Read more link
+                $(elem).find('.teaser-content p').text(data.teaser);
             }
-            if ( $(elem).is('li') ){
-                $(elem).find('a').text(data.headline);
+            if ( $(elem).hasClass('cover-banner') ){
+                $(elem).find('.bottom-content p').text(data.teaser);
             }
         }
 
