@@ -53,11 +53,17 @@ window.optimizelyEditorial = {
     itemOnPage: function(items, callback) {
         // Loop through items
         for (var i = 0; i < items.length; i++) {
-            // Trigger callback every time an element matching the selector is added to the page
-            // Every element will be pushed to the window.optimizelyEditorial.elementsToDecorate array once so that your experiment code can pick it up and decorate accordingly
-            window.optimizelyEditorial.waitForElement(items[i], 'article:has(a[href*="' + items[i] + '"])',
+            // Trigger for article teasers on edition home
+            window.optimizelyEditorial.waitForElement(items[i], 'article.teaser:has(a[href*="' + items[i] + '"])',
                 function() {
                     callback.call();
+                });
+            // Trigger for actual article extract (when inserted) on article page (if url matches article url)
+            window.optimizelyEditorial.waitForElement(items[i], 'main.content div.article-extract-text',
+                function() {
+                    if ( window.location.href.indexOf(items[i]) > -1 ){
+                        callback.call();
+                    }
                 });
         }
     },
@@ -75,7 +81,7 @@ window.optimizelyEditorial = {
         // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
         if (data.headline) {
             $(elem)
-                .find('h1').text(data.headline);
+                .find('h1, h2').text(data.headline);
         }
         if (data.teaser_image) {
             $(elem)

@@ -1,5 +1,5 @@
 function(activate, options) {
     optimizelyEditorial.itemOnPage([
-        "12345"
+        "/edition/405/ressort/finance/article/man-in-the-middle"
     ], activate)
 }
