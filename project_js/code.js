@@ -53,11 +53,25 @@ window.optimizelyEditorial = {
     itemOnPage: function(items, callback) {
         // Loop through items
         for (var i = 0; i < items.length; i++) {
+            
+            // Trigger vor cover stories on edition home
+            window.optimizelyEditorial.waitForElement(items[i], 'section.cover-banner:has(a[href*="' + items[i] + '"])',
+                function() {
+                    callback.call();
+                });
+
             // Trigger for article teasers on edition home
             window.optimizelyEditorial.waitForElement(items[i], 'article.teaser:has(a[href*="' + items[i] + '"])',
                 function() {
                     callback.call();
                 });
+
+            // Trigger for article list teaser links on edition home
+            window.optimizelyEditorial.waitForElement(items[i], 'div.list-teaser ul li:has(a[href*="' + items[i] + '"])',
+                function() {
+                    callback.call();
+                });
+
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
             window.optimizelyEditorial.waitForElement(items[i], 'main.content div.article-extract-text',
                 function() {
@@ -78,11 +92,31 @@ window.optimizelyEditorial = {
         } else {
             return false;
         }
-        // Check if treatment is available for e.g. headlines, teaser images etc. and apply changes
+
         if (data.headline) {
-            $(elem)
-                .find('h1, h2').text(data.headline);
+            if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
+                $(elem).find('h2').text(data.headline);
+            }
+            if ( $(elem).is('li') ){
+                $(elem).find('a').text(data.headline);
+            }
         }
+
+        if (data.overline) {
+            if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
+                $(elem).find('h3').text(data.headline);
+            }
+        }
+
+        if (data.teasertext) {
+            if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
+                $(elem).find('h2').text(data.headline);
+            }
+            if ( $(elem).is('li') ){
+                $(elem).find('a').text(data.headline);
+            }
+        }
+
         if (data.teaser_image) {
             $(elem)
                 .find('img').attr('src', data.teaser_image);
