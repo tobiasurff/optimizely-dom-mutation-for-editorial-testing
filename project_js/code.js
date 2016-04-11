@@ -42,7 +42,7 @@ window.optimizelyEditorial = {
                             window.optimizelyEditorial.elementsToDecorate[identifier].push(element);
                            
                             // Invoke the callback with the element
-                            listener.fn.call(element, element, identifier);
+                            listener.fn.call(element, element, listener.identifier);
                         }
                     }
                 }
@@ -85,11 +85,11 @@ window.optimizelyEditorial = {
                 });
 
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
-            window.optimizelyEditorial.waitForElement(items[i], '.article-extract',
+            window.optimizelyEditorial.waitForElement(items[i], '.content:has(.addthis_sharing_toolbox[data-url*="' + items[i] + '"]) .article-extract',
                 function(elem, itemid) {
-                    //console.log('Callback triggered' + identifier);
+                    console.log('Callback triggered and address not checked ' + itemid + ' ' + (window.location.href.indexOf(itemid) > -1));
                         if ( window.location.href.indexOf(itemid) > -1 ){
-                            //console.log('Callback triggered' + identifier);
+                            console.log('Callback triggered and item checked' + itemid);
                             callback.call();
                         }
                     
@@ -103,10 +103,8 @@ window.optimizelyEditorial = {
         }
         
         identifier = window.optimizelyEditorial.escapeStringForVariableName(identifier);
-console.log('Identifier in var set ' + identifier);
         // Get the last element added to the window.optimizelyEditorial.elementsToDecorate array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
         if (typeof window.optimizelyEditorial.elementsToDecorate[identifier] !== 'undefined' && window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
-console.log('Exp ' + identifier);
             var elem = window.optimizelyEditorial.elementsToDecorate[identifier].pop();
         } else {
             return false;
