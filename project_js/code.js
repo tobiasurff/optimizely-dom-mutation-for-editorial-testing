@@ -1,5 +1,13 @@
 window.optimizelyEditorial = {
     elementsToDecorate: [],
+    escapeStringForVariableName: function(string) {
+        return 'elem' + string.replace(/[^a-z0-9]/g, function(s) {
+          var c = s.charCodeAt(0);
+          //if (c == 32) return '-';
+         //if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
+         return ('000' + c.toString(16)).slice(-4);
+    });
+    },
     waitForElement: function(identifier, selector, fn) {
         // If Mutation Observers are available
         if (window.MutationObserver || window.WebKitMutationObserver) {
@@ -10,6 +18,7 @@ window.optimizelyEditorial = {
             // Store the selector and callback to be monitored
             listeners.push({
                 selector: selector,
+                identifier: identifier,
                 fn: fn
             });
 
@@ -26,7 +35,8 @@ window.optimizelyEditorial = {
                         // same element more than once
                         if (!element.ready) {
                             element.ready = true;
-                            
+
+                            var identifier = window.optimizelyEditorial.escapeStringForVariableName(listener.identifier);
                             // Add element to array so that it can be picked up from within variation code
                             window.optimizelyEditorial.elementsToDecorate[identifier] = window.optimizelyEditorial.elementsToDecorate[identifier] || [];
                             window.optimizelyEditorial.elementsToDecorate[identifier].push(element);
@@ -75,12 +85,11 @@ window.optimizelyEditorial = {
                 });
 
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
-            curitem = items[i];
             window.optimizelyEditorial.waitForElement(items[i], '.article-extract',
-                function(elem, identifier) {
-                    console.log('Callback triggered' + identifier);
-                        if ( window.location.href.indexOf(identifier) > -1 ){
-                            console.log('Callback triggered' + identifier);
+                function(elem, itemid) {
+                    //console.log('Callback triggered' + identifier);
+                        if ( window.location.href.indexOf(itemid) > -1 ){
+                            //console.log('Callback triggered' + identifier);
                             callback.call();
                         }
                     
@@ -92,8 +101,12 @@ window.optimizelyEditorial = {
         if (!identifier) {
             return false;
         }
+        
+        identifier = window.optimizelyEditorial.escapeStringForVariableName(identifier);
+console.log('Identifier in var set ' + identifier);
         // Get the last element added to the window.optimizelyEditorial.elementsToDecorate array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
         if (typeof window.optimizelyEditorial.elementsToDecorate[identifier] !== 'undefined' && window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
+console.log('Exp ' + identifier);
             var elem = window.optimizelyEditorial.elementsToDecorate[identifier].pop();
         } else {
             return false;
