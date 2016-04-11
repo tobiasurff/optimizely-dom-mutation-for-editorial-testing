@@ -87,7 +87,7 @@ window.optimizelyEditorial = {
             return false;
         }
         // Get the last element added to the window.optimizelyEditorial.elementsToDecorate array to make sure each element gets treated only once, even if the experiment activates mutliple times on the page
-        if (window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
+        if (typeof window.optimizelyEditorial.elementsToDecorate[identifier] !== 'undefined' && window.optimizelyEditorial.elementsToDecorate[identifier].length > 0) {
             var elem = window.optimizelyEditorial.elementsToDecorate[identifier].pop();
         } else {
             return false;
