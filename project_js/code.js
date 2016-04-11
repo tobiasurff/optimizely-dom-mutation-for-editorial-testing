@@ -78,8 +78,8 @@ window.optimizelyEditorial = {
                     setTimeout(function(){
                         if ( window.location.href.indexOf(items[i]) > -1 ){
                             callback.call();
-                        }, 1500
-                    });
+                        }
+                    }, 1500);
                 });
         }
     },
