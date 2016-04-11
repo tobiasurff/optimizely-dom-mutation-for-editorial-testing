@@ -25,7 +25,7 @@ window.optimizelyEditorial = {
                         // Make sure the callback isn't invoked with the 
                         // same element more than once
                         if (!element.ready) {
-                            element.ready = true;
+                            //element.ready = true;
                             
                             // Add element to array so that it can be picked up from within variation code
                             window.optimizelyEditorial.elementsToDecorate[identifier] = window.optimizelyEditorial.elementsToDecorate[identifier] || [];
@@ -42,7 +42,8 @@ window.optimizelyEditorial = {
                 observer = new MutationObserver(check);
                 observer.observe(doc.documentElement, {
                     childList: true,
-                    subtree: true
+                    subtree: true,
+                    attributeFilter: ['style']
                 });
             }
             // Check if the element is currently in the DOM
@@ -57,6 +58,7 @@ window.optimizelyEditorial = {
             // Trigger vor cover stories on edition home
             window.optimizelyEditorial.waitForElement(items[i], 'section.cover-banner:has(a[href*="' + items[i] + '"])',
                 function() {
+                    console.log('Cover banner inserted');
                     callback.call();
                 });
 
@@ -77,8 +79,9 @@ window.optimizelyEditorial = {
             console.log("1 Triggered " + curitem + window.location.href);
             window.optimizelyEditorial.waitForElement(items[i], '.article-extract',
                 function() {
+                    var current_identifier = curitem;
                     //console.log("Triggered " + curitem + window.location.href);
-                        if ( window.location.href.indexOf(curitem) > -1 ){
+                        if ( window.location.href.indexOf(current_identifier) > -1 ){
                             console.log('Callback triggered');
                             callback.call();
                         }
