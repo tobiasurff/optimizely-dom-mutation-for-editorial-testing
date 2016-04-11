@@ -87,9 +87,7 @@ window.optimizelyEditorial = {
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
             window.optimizelyEditorial.waitForElement(items[i], '.content:has(.addthis_sharing_toolbox[data-url*="' + items[i] + '"]) .article-extract',
                 function(elem, itemid) {
-                    console.log('Callback triggered and address not checked ' + itemid + ' ' + (window.location.href.indexOf(itemid) > -1));
                         if ( window.location.href.indexOf(itemid) > -1 ){
-                            console.log('Callback triggered and item checked' + itemid);
                             callback.call();
                         }
                     
