@@ -158,10 +158,12 @@ window.optimizelyEditorial = {
     if (data.teaser) {
       if ($(elem)
         .hasClass('teaser')) {
-        // TODO: Read more link
+        var readmorelink = $(elem)
+          .find('.teaser-content p .hellip');
         $(elem)
           .find('.teaser-content p')
-          .text(data.teaser);
+          .text(data.teaser + " ")
+          .append(readmorelink);
       }
       if ($(elem)
         .hasClass('cover-banner')) {
