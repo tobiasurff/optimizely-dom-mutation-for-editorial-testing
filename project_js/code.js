@@ -73,13 +73,16 @@ window.optimizelyEditorial = {
                 });
 
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
+            curitem = items[i];
+            console.log("1 Triggered " + curitem + window.location.href);
             window.optimizelyEditorial.waitForElement(items[i], '.article-extract',
                 function() {
-                    setTimeout(function(){
-                        if ( window.location.href.indexOf(items[i]) > -1 ){
+                    //console.log("Triggered " + curitem + window.location.href);
+                        if ( window.location.href.indexOf(curitem) > -1 ){
+                            console.log('Callback triggered');
                             callback.call();
                         }
-                    }, 1500);
+                    
                 });
         }
     },
@@ -154,6 +157,5 @@ window.optimizelyEditorial = {
                 });
             }
         }
-
     }
 };
