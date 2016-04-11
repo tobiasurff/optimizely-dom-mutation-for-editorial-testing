@@ -73,11 +73,13 @@ window.optimizelyEditorial = {
                 });
 
             // Trigger for actual article extract (when inserted) on article page (if url matches article url)
-            window.optimizelyEditorial.waitForElement(items[i], 'main.content div.article-extract-text',
+            window.optimizelyEditorial.waitForElement(items[i], '.article-extract',
                 function() {
-                    if ( window.location.href.indexOf(items[i]) > -1 ){
-                        callback.call();
-                    }
+                    setTimeout(function(){
+                        if ( window.location.href.indexOf(items[i]) > -1 ){
+                            callback.call();
+                        }, 1500
+                    });
                 });
         }
     },
@@ -94,17 +96,28 @@ window.optimizelyEditorial = {
         }
 
         if (data.headline) {
+            // Regular teaser
             if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
                 $(elem).find('h2').text(data.headline);
             }
+            // List teaser
             if ( $(elem).is('li') ){
                 $(elem).find('a').text(data.headline);
+            }
+            // Article
+            if ( $(elem).hasClass('article-extract') ){
+                $(elem).find('h1').text(data.headline);
             }
         }
 
         if (data.overline) {
+            //Regular teaser
             if ( $(elem).hasClass('teaser') || $(elem).hasClass('cover-banner') ){
                 $(elem).find('h3').text(data.overline);
+            }
+            // Article
+            if ( $(elem).hasClass('article-extract') ){
+                $(elem).find('h2.overline').text(data.overline);
             }
         }
 
@@ -115,6 +128,10 @@ window.optimizelyEditorial = {
             }
             if ( $(elem).hasClass('cover-banner') ){
                 $(elem).find('.bottom-content p').text(data.teaser);
+            }
+            // Article
+            if ( $(elem).hasClass('article-extract') ){
+                $(elem).find('p').text(data.teaser);
             }
         }
 
@@ -129,7 +146,7 @@ window.optimizelyEditorial = {
                     });
             }
             if ( $(elem).hasClass('cover-banner') ){
-                $(elem).css("background-image",'url("' + data.teaser_image + '")')
+                $(elem).css("background-image",'url("' + data.teaser_image + '")');
                 $(elem).attr({
                     "data-img-lg": data.teaser_image,
                     "data-img-md": data.teaser_image,
