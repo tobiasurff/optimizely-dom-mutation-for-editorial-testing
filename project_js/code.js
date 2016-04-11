@@ -119,8 +119,24 @@ window.optimizelyEditorial = {
         }
 
         if (data.teaser_image) {
-            $(elem)
-                .find('img').attr('src', data.teaser_image);
+            if ( $(elem).hasClass('teaser') ){
+                $(elem)
+                    .find('.teaser-image img').attr({
+                        src: data.teaser_image,
+                        "data-src": data.teaser_image,
+                        "data-srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
+                        "srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
+                    });
+            }
+            if ( $(elem).hasClass('cover-banner') ){
+                $(elem).css("background-image",'url("' + data.teaser_image + '")')
+                $(elem).attr({
+                    "data-img-lg": data.teaser_image,
+                    "data-img-md": data.teaser_image,
+                    "data-img-sm": data.teaser_image
+                });
+            }
         }
+
     }
 };
