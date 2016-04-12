@@ -1,40 +1,42 @@
 {
     "experiment": {
-        "description": "[Editorial] - {{Article ID}} - {{Existing Headline}}",
-        "edit_url": "http://www.example.com/",
+        "description": "[Editorial] - {{Article Slug}} - {{Existing Headline}}",
+        "edit_url": "https://global.handelsblatt.com/",
         "url_conditions": [{
-            "match_type": "simple",
-            "value": "http://www.example.com/",
+            "match_type": "substring",
+            "value": "https://global.handelsblatt.com/",
             "negate": false
         }],
         "activation_mode": "conditional",
-        "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{Article ID}}\"\r\n    ], activate)\r\n}"
+        "conditional_code": "function(activate, options) {\r\n    optimizelyEditorial.itemOnPage([\r\n        \"{{Article Slug}}\"\r\n    ], activate)\r\n}"
     },
     "variations": [{
         "description": "{{Existing Headline}}"
     }, {
         "description": "{{Headline}}",
-        "js_component": "\/* _optimizely_evaluate=force *\/\r\noptimizelyEditorial.decorateItem(\"{{Article ID}}\", {{\r\n    headline: \"{{Headline}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
+        "js_component": "/* _optimizely_evaluate=editor_only */\r\noptimizelyEditorial.itemOnPage([\"{{Article Slug}}\"], function(){}); \r\n/* _optimizely_evaluate=end_editor_only */ \r\n/* _optimizely_evaluate=force */\r\noptimizelyEditorial.decorateItem(\"{{Article Slug}}\", {\r\n    overline: \"{{Overline}}\",\r\n    headline: \"{{Headline}}\",\r\n    teaser: \"{{Teaser Text}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
     }],
     "goals": [{
         "goal_type": 3,
         "addable": false,
         "urls": [
-            "&article={{Article ID}}"
+            "{{Article Slug}}"
         ],
         "url_match_types": [
             2
         ],
-        "title": "Viewed article {{Article ID}}: {{Existing Headline}}"
+        "title": "Viewed article {{Existing Headline}}"
     }],
-    "project_id": 12345,
+    "project_id": 4231830376,
     "placeholders": {
         "experiment": {
-            "Article ID": "[0-9]{5,}",
+            "Article Slug": ".{7,}",
             "Existing Headline": ".+"
         },
         "variation": {
+            "Overline": ".*",
             "Headline": ".*",
+            "Teaser Text": ".*",
             "Teaser Image": {
                 "source": "filepicker",
                 "options": {
