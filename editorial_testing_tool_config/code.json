@@ -16,7 +16,8 @@
         "description": "{{Headline}}",
         "js_component": "/* _optimizely_evaluate=editor_only */\r\noptimizelyEditorial.itemOnPage([\"{{Article Slug}}\"], function(){}); \r\n/* _optimizely_evaluate=end_editor_only */ \r\n/* _optimizely_evaluate=force */\r\noptimizelyEditorial.decorateItem(\"{{Article Slug}}\", {\r\n    overline: \"{{Overline}}\",\r\n    headline: \"{{Headline}}\",\r\n    teaser: \"{{Teaser Text}}\",\r\n    teaser_image_on_article: \"{{Teaser Text}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
     }],
-    "goals": [{
+    "goals": [4237900321,
+    {
         "goal_type": 3,
         "addable": false,
         "urls": [
