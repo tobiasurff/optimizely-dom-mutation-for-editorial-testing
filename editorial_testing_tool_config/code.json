@@ -37,14 +37,8 @@
             "Overline": ".*",
             "Headline": ".*",
             "Teaser Text": ".*",
-            "Teaser Image": {
-                "source": "filepicker",
-                "options": {
-                    "data-fp-apikey": "ADD YOUR API KEY HERE",
-                    "data-fp-button-text": "Upload Image",
-                    "data-fp-crop-ratio": "1408/792"
-                }
-            }
+            "Teaser Image": "https.*",
+            "Switch Teaser Image on Article (Y / N)": "Y|N"
         }
     }
 }
