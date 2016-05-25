@@ -9,13 +9,13 @@ window.optimizelyEditorial = {
         .slice(-4);
     });
   },
-  setIntervalX: function(callback, delay, repetitions) {
+  setIntervalX: function(callback, delay, repetitions, breakcondition ) {
     var x = 0;
     var intervalID = window.setInterval(function () {
 
        callback();
 
-       if (++x === repetitions) {
+       if (++x === repetitions || breakcondition === true) {
            window.clearInterval(intervalID);
        }
     }, delay);
@@ -116,6 +116,10 @@ window.optimizelyEditorial = {
         });
 
       // PDP second image
+      window.optimizelyEditorial.waitForElement(items[i], '.cont_prod_det_pic_2:has(a[href*="' + items[i] + '"])',
+        function() {
+          callback.call();
+        });
 
       // PDP: Zoom
 
@@ -148,14 +152,37 @@ window.optimizelyEditorial = {
       
       // Change zoom overlay on main pic on PDP
       else if ($(elem).is('.cont_prod_det_pic_1')) {
-        window.$(elem).mousedown(function(){
-          //app.ProductCache.showImageZoom(data.bust);
-        });
 
+        // Adapt image that opens when image is clicked (setInterval since asyn)
         optimizelyEditorial.setIntervalX(function(){
-          console.log($(elem).find('a').attr('dialog-image'));
-          $(elem).find('a').attr('dialog-image',data.bust);
-        }, 30, 100);
+          $(elem).find('a').attr({
+            'dialog-image': data.bust,
+            'href': data.bust
+          });
+        }, 50, 100);
+        
+      }
+
+      // Change zoom overlay on main pic on PDP
+      else if ($(elem).is('.cont_prod_det_pic_2')) {
+
+        // Swap out image
+        $(elem).find('img').attr('src', data.bust);
+        
+        // Adapt image that opens when image is clicked (setInterval since asyn)
+        optimizelyEditorial.setIntervalX(function(){
+          $(elem).find('a').attr({
+            'dialog-image': data.model,
+            'href': data.model
+          });
+          $(elem).find('img').attr('src', data.model);
+        }, 50, 100);
+        
+        //Reinitialize cloudzoom (setInterval since async)
+        optimizelyEditorial.setIntervalX(function(){
+          jQuery('.cloud-zoom').CloudZoom();
+        }, 800, 5);
+
       }
 
     }
