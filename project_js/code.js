@@ -9,7 +9,7 @@ window.optimizelyEditorial = {
         .slice(-4);
     });
   },
-  setIntervalX: function(callback, delay, repetitions, breakcondition ) {
+  setIntervalX: function(callback, delay, repetitions, breakcondition) {
     var x = 0;
     var intervalID = window.setInterval(function () {
 
@@ -104,7 +104,7 @@ window.optimizelyEditorial = {
         });
 
       // Model image in cart
-      window.optimizelyEditorial.waitForElement(items[i], '.productcontainer .image a[href*="' + items[i] + '"] img',
+      window.optimizelyEditorial.waitForElement(items[i], '.productcontainer .image img[src*="' + items[i] + '"]',
         function() {
           callback.call();
         });
@@ -120,11 +120,6 @@ window.optimizelyEditorial = {
         function() {
           callback.call();
         });
-
-      // PDP: Zoom
-
-      // PDP: Zoom overlay
-
 
     }
   },
