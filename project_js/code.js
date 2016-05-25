@@ -9,6 +9,17 @@ window.optimizelyEditorial = {
         .slice(-4);
     });
   },
+  setIntervalX: function(callback, delay, repetitions) {
+    var x = 0;
+    var intervalID = window.setInterval(function () {
+
+       callback();
+
+       if (++x === repetitions) {
+           window.clearInterval(intervalID);
+       }
+    }, delay);
+},
   waitForElement: function(identifier, selector, fn) {
     // If Mutation Observers are available
     if (window.MutationObserver || window.WebKitMutationObserver) {
@@ -130,12 +141,21 @@ window.optimizelyEditorial = {
 
     if (data.bust && data.model) {
      
+      // Swap all images
       if ($(elem).is('img')){
         $(elem).attr('src', data.bust);
-      } else if ($(elem).is('.cont_prod_det_pic_1')) {
-        $(elem).remove();
-        //window.jQuery(elem).unbind('click')
-        //app.ProductCache.showImageZoom('//placekitten.com/1500/1950')
+      } 
+      
+      // Change zoom overlay on main pic on PDP
+      else if ($(elem).is('.cont_prod_det_pic_1')) {
+        window.$(elem).mousedown(function(){
+          //app.ProductCache.showImageZoom(data.bust);
+        });
+
+        optimizelyEditorial.setIntervalX(function(){
+          console.log($(elem).find('a').attr('dialog-image'));
+          $(elem).find('a').attr('dialog-image',data.bust);
+        }, 30, 100);
       }
 
     }
