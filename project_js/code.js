@@ -68,11 +68,48 @@ window.optimizelyEditorial = {
     // Loop through items
     for (var i = 0; i < items.length; i++) {
 
-      // Trigger if product is on category page
+      // Model image on cat page
       window.optimizelyEditorial.waitForElement(items[i], '.productlisting-main-image a[href*="' + items[i] + '"] img',
         function() {
           callback.call();
         });
+
+      // Model image in last viewed
+      window.optimizelyEditorial.waitForElement(items[i], '.productimage a[href*="' + items[i] + '"] img',
+        function() {
+          callback.call();
+        });
+
+      // Model image in reco
+      window.optimizelyEditorial.waitForElement(items[i], '.recommendation_image a[href*="' + items[i] + '"] img',
+        function() {
+          callback.call();
+        });
+
+      // Model image in mini cart
+      window.optimizelyEditorial.waitForElement(items[i], '.checkoutminicart .summaryproduct .image a[href*="' + items[i] + '"] img',
+        function() {
+          callback.call();
+        });
+
+      // Model image in cart
+      window.optimizelyEditorial.waitForElement(items[i], '.productcontainer .image a[href*="' + items[i] + '"] img',
+        function() {
+          callback.call();
+        });
+
+      // PDP first image
+      window.optimizelyEditorial.waitForElement(items[i], '.cont_prod_det_pic_1:has(a[href*="' + items[i] + '"])',
+        function() {
+          callback.call();
+        });
+
+      // PDP second image
+
+      // PDP: Zoom
+
+      // PDP: Zoom overlay
+
 
     }
   },
@@ -91,9 +128,15 @@ window.optimizelyEditorial = {
       return false;
     }
 
-    if (data.bust) {
+    if (data.bust && data.model) {
      
-      $(elem).attr('src', data.bust);
+      if ($(elem).is('img')){
+        $(elem).attr('src', data.bust);
+      } else if ($(elem).is('.cont_prod_det_pic_1')) {
+        $(elem).remove();
+        //window.jQuery(elem).unbind('click')
+        //app.ProductCache.showImageZoom('//placekitten.com/1500/1950')
+      }
 
     }
   }
