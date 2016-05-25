@@ -68,33 +68,12 @@ window.optimizelyEditorial = {
     // Loop through items
     for (var i = 0; i < items.length; i++) {
 
-      // Trigger vor cover stories on edition home
-      window.optimizelyEditorial.waitForElement(items[i], 'section.cover-banner:has(a[href*="' + items[i] + '"])',
+      // Trigger if product is on category page
+      window.optimizelyEditorial.waitForElement(items[i], '.productlisting-main-image a[href*="' + items[i] + '"] img',
         function() {
           callback.call();
         });
 
-      // Trigger for article teasers on edition home
-      window.optimizelyEditorial.waitForElement(items[i], 'article.teaser:has(a[href*="' + items[i] + '"])',
-        function() {
-          callback.call();
-        });
-
-      // Trigger for article list teaser links on edition home
-      window.optimizelyEditorial.waitForElement(items[i], 'div.list-teaser ul li:has(a[href*="' + items[i] + '"])',
-        function() {
-          callback.call();
-        });
-
-      // Trigger for actual article extract (when inserted) on article page (if url matches article url)
-      window.optimizelyEditorial.waitForElement(items[i], '.content:has(.addthis_sharing_toolbox[data-url*="' +
-        items[i] + '"])',
-        function(elem, itemid) {
-          if (window.location.href.indexOf(itemid) > -1) {
-            callback.call();
-          }
-
-        });
     }
   },
   decorateItem: function(identifier, data) {
@@ -112,108 +91,10 @@ window.optimizelyEditorial = {
       return false;
     }
 
-    if (data.headline) {
-      // Regular teaser
-      if ($(elem)
-        .hasClass('teaser') || $(elem)
-        .hasClass('cover-banner')) {
-        $(elem)
-          .find('h2')
-          .text(data.headline);
-      }
-      // List teaser
-      if ($(elem)
-        .is('li')) {
-        $(elem)
-          .find('a')
-          .text(data.headline);
-      }
-      // Article
-      if ($(elem)
-        .has('.article-extract')) {
-        $(elem)
-          .find('.article-extract h1')
-          .text(data.headline);
-      }
-    }
+    if (data.bust) {
+     
+      $(elem).attr('src', data.bust);
 
-    if (data.overline) {
-      //Regular teaser
-      if ($(elem)
-        .hasClass('teaser') || $(elem)
-        .hasClass('cover-banner')) {
-        $(elem)
-          .find('h3')
-          .text(data.overline);
-      }
-      // Article
-      if ($(elem)
-        .has('article-extract')) {
-        $(elem)
-          .find('h2.overline')
-          .text(data.overline);
-      }
-    }
-
-    if (data.teaser) {
-      if ($(elem)
-        .hasClass('teaser')) {
-        var readmorelink = $(elem)
-          .find('.teaser-content p .hellip');
-        $(elem)
-          .find('.teaser-content p')
-          .text(data.teaser + " ")
-          .append(readmorelink);
-      }
-      if ($(elem)
-        .hasClass('cover-banner')) {
-        $(elem)
-          .find('.bottom-content p')
-          .text(data.teaser);
-      }
-      // Article
-      if ($(elem)
-        .has('article-extract')) {
-        $(elem)
-          .find('.article-extract p')
-          .text(data.teaser);
-      }
-    }
-
-    if (data.teaser_image) {
-      if ($(elem)
-        .hasClass('teaser')) {
-        $(elem)
-          .find('.teaser-image img')
-          .attr({
-            src: data.teaser_image,
-            "data-src": data.teaser_image,
-            "data-srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
-            "srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
-          });
-      }
-      if ($(elem)
-        .hasClass('cover-banner')) {
-        $(elem)
-          .css("background-image", 'url("' + data.teaser_image + '")');
-        $(elem)
-          .attr({
-            "data-img-lg": data.teaser_image,
-            "data-img-md": data.teaser_image,
-            "data-img-sm": data.teaser_image
-          });
-      }
-      if ( typeof data.teaser_image_on_article != "undefined" && data.teaser_image_on_article == "Y" && $(elem)
-        .has('.article-content') ) {
-        $(elem)
-          .find('.article-content img:eq(0)')
-          .attr({
-            src: data.teaser_image,
-            "data-src": data.teaser_image,
-            "data-srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
-            "srcset": data.teaser_image + " 300w, " + data.teaser_image + " 600w",
-          });
-      }
     }
   }
 };
