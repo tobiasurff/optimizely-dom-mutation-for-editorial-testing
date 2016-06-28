@@ -15,8 +15,9 @@
     }, {
         "description": "{{Headline}}",
         "js_component": "/* _optimizely_evaluate=editor_only */\r\noptimizelyEditorial.itemOnPage([\"{{Article Slug}}\"], function(){}); \r\n/* _optimizely_evaluate=end_editor_only */ \r\n/* _optimizely_evaluate=force */\r\noptimizelyEditorial.decorateItem(\"{{Article Slug}}\", {\r\n    overline: \"{{Overline}}\",\r\n    headline: \"{{Headline}}\",\r\n    teaser: \"{{Teaser Text}}\",\r\n    teaser_image_on_article: \"{{Teaser Text}}\",\r\n    teaser_image: \"{{Teaser Image}}\"\r\n});"
+
     }],
-    "goals": [4237900321,
+    "goals": [5536152991,
     {
         "goal_type": 3,
         "addable": false,
@@ -28,7 +29,7 @@
         ],
         "title": "Viewed article {{Existing Headline}}"
     }],
-    "project_id": 4231830376,
+    "project_id": 5552290401,
     "placeholders": {
         "experiment": {
             "Article Slug": ".{7,}",
